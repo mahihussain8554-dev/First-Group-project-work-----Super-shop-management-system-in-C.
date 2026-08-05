@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define MAX_PRODUCTS 100
-#define MAX_CUSTOMERS 50
+#define MAX_CUSTOMERS 200
 #define MAX_BILLS 200
 #define MAX_NAME 50
 #define MAX_PASSWORD 20
@@ -259,16 +259,20 @@ void searchProduct() {
     if(choice == 1) {
         printf("Enter Product ID: ");
         scanf("%d", &id);
+        int flag = 1;
         for(int i = 0; i < product_count; i++) {
             if(products[i].id == id) {
                 printf("\nProduct Found:\n");
                 printf("ID: %d\nName: %s\nPrice: $%.2f\nStock: %d\nCategory: %s\n",
                        products[i].id, products[i].name, products[i].price,
                        products[i].quantity, products[i].category);
+                       flag = 0;
                 return;
             }
         }
+        if(flag==1) printf("Invalid ID!");
     } else if(choice == 2) {
+        int flag =  1;
         printf("Enter Product Name: ");
         fgets(name, MAX_NAME, stdin);
         name[strcspn(name, "\n")] = 0;
@@ -279,8 +283,12 @@ void searchProduct() {
                 printf("ID: %d, Name: %s, Price: $%.2f, Stock: %d\n",
                        products[i].id, products[i].name, products[i].price,
                        products[i].quantity);
+                       flag = 0;
+                       return;
             }
+           
         }
+        if(flag == 1) printf("Invalid Name!");
     }
 }
 
@@ -557,10 +565,10 @@ void adminMenu() {
                 pressAnyKey();
                 break;
             }
-            case 0: printf("Logging out...\n"); break;
+            case 5: printf("Logging out...\n"); break;
             default: printf("Invalid choice!\n"); pressAnyKey();
         }
-    } while(choice != 0);
+    } while(choice != 5);
 }
 
 void cashierMenu() {
